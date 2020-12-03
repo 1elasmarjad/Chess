@@ -16,6 +16,20 @@ class gameboard:
     ]
 
     @classmethod
+    def move_to(cls, pc, x_to, y_to):
+        xy = x_to, y_to
+        if xy in pc.possible_movements():
+            EMPTY = piece.empty
+            if cls.board_array[x_to][y_to].name != "empty":
+                cls.board_array[x_to][y_to].kill()
+            cls.board_array[pc.x][pc.y] = EMPTY  # old position
+            pc.x = x_to  # pieces new x
+            pc.y = y_to  # pieces new y
+            cls.board_array[pc.x][pc.y] = pc  # updated position
+            if pc.name == "pawn":
+                pc.moved_once = True
+
+    @classmethod
     def make_all_empty(cls):
         EMPTY = piece.empty
         for x in range(len(cls.board_array)):
@@ -67,6 +81,13 @@ class gameboard:
         return False
 
     @classmethod
+    def draw(cls):
+        for x in range(len(cls.board_array)):
+            for y in range(len(cls.board_array[x])):
+                if cls.board_array[x][y] != piece.empty:
+                    cls.board_array[x][y].draw()
+
+    @classmethod
     def show(cls):
         output = ""
         for c in range(len(cls.board_array)):
@@ -102,3 +123,4 @@ class gameboard:
         for x in range(len(gameboard.board_array[0])):
             piece.pawn(x, 1, constants.TEAM_NAME_2)
             piece.pawn(x, 6, constants.TEAM_NAME_1)
+

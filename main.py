@@ -2,11 +2,23 @@ from Pieces import piece
 import board
 import pygame
 
-board.gameboard.start()
+FRAME_RATE = 30
 
-board.gameboard.show()
+pygame.init()
+pygame.display.set_caption("Chess")
+display = pygame.display.set_mode((1024, 1024))
+clock = pygame.time.Clock()
 
-print(board.gameboard.peek_index(0, 1).team)
-print(board.gameboard.peek_index(0, 1).name)
-print(board.gameboard.peek_index(0, 6).possible_movements())
+running = True
 
+board.gameboard.start()  # starts and organizes the chess board
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False  # breaks out of running loop
+
+    board.gameboard.draw()
+
+    pygame.display.update()
+    clock.tick(FRAME_RATE)

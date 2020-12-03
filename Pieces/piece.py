@@ -11,12 +11,17 @@ class parent:
         self.team = team
         board.gameboard.set_index(x, y, self)
 
+    def kill(self):
+        self.alive = False
+
 
 # ----------KING----------
 
 class king(parent):
     pass
     name = "king"
+    check_mate = False
+    stuck = False
 
     def __init__(self, x, y, team):
         super().__init__(x, y, team)
@@ -200,6 +205,9 @@ class knight(parent):
     name = "knight"
     print('todo')  # todo
 
+    def draw(self):
+        print("todo")  # todo
+
 
 # ----------QUEEN----------
 
@@ -222,6 +230,7 @@ class queen(rook, bishop):
 class pawn(parent):
     pass
     name = "pawn"
+    moved_once = False
 
     def __int__(self, x, y, team):
         super().__init__(x, y, team)
@@ -231,13 +240,15 @@ class pawn(parent):
         if self.team == constants.TEAM_NAME_1:
             if self.y - 1 >= 0 and board.gameboard.peek_index(self.x, self.y - 1).name == "empty":
                 possible.append((self.x, self.y - 1))
-                if self.y - 2 >= 0 and board.gameboard.peek_index(self.x, self.y - 2).name == "empty":
+                if not self.moved_once and self.y - 2 >= 0 and board.gameboard.peek_index(self.x,
+                                                                                          self.y - 2).name == "empty":
                     possible.append((self.x, self.y - 2))
 
         elif self.team == constants.TEAM_NAME_2:
             if self.y + 1 <= 7 and board.gameboard.peek_index(self.x, self.y + 1).name == "empty":
                 possible.append((self.x, self.y + 1))
-                if self.y + 2 <= 7 and board.gameboard.peek_index(self.x, self.y + 2).name == "empty":
+                if not self.moved_once and self.y + 2 <= 7 and board.gameboard.peek_index(self.x,
+                                                                                          self.y + 2).name == "empty":
                     possible.append((self.x, self.y + 2))
         return possible
 
