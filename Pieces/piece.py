@@ -12,6 +12,8 @@ class parent:
         board.gameboard.set_index(x, y, self)
 
 
+# ----------KING----------
+
 class king(parent):
     pass
     name = "king"
@@ -26,7 +28,9 @@ class king(parent):
         print('todo')  # todo
 
 
-class castle(parent):
+# ----------ROOK----------
+
+class rook(parent):
     pass
     name = "castle"
 
@@ -100,6 +104,8 @@ class castle(parent):
     def draw(self):
         print('todo')  # todo
 
+
+# ----------BISHOP----------
 
 class bishop(parent):
     pass
@@ -187,7 +193,17 @@ class bishop(parent):
         print('todo')  # todo
 
 
-class queen(castle, bishop):
+# ----------KNIGHT----------
+
+class knight(parent):
+    pass
+    name = "knight"
+    print('todo')  # todo
+
+
+# ----------QUEEN----------
+
+class queen(rook, bishop):
     pass
     name = "queen"
 
@@ -200,6 +216,8 @@ class queen(castle, bishop):
     def draw(self):
         print('todo')  # todo
 
+
+# ----------PAWN----------
 
 class pawn(parent):
     pass
@@ -217,15 +235,17 @@ class pawn(parent):
                     possible.append((self.x, self.y - 2))
 
         elif self.team == constants.TEAM_NAME_2:
-            if self.y + 1 <= 7 and board.gameboard.peek_index(self.x, self.y - 1).name == "empty":
+            if self.y + 1 <= 7 and board.gameboard.peek_index(self.x, self.y + 1).name == "empty":
                 possible.append((self.x, self.y + 1))
-                if self.y + 2 <= 7 and board.gameboard.peek_index(self.x, self.y - 2).name == "empty":
+                if self.y + 2 <= 7 and board.gameboard.peek_index(self.x, self.y + 2).name == "empty":
                     possible.append((self.x, self.y + 2))
         return possible
 
     def draw(self):
         print("Todo")  # todo
 
+
+# ----------EMPTY----------
 
 class empty:
     name = "empty"

@@ -1,8 +1,12 @@
 from Pieces import piece
 import board
+import pygame
 
-board.gameboard.make_all_empty()
+board.gameboard.start()
 
-test = piece.pawn(4, 4, "b")
+board.gameboard.show()
 
-print(test.possible_movements())
+print(board.gameboard.peek_index(0, 1).team)
+print(board.gameboard.peek_index(0, 1).name)
+print(board.gameboard.peek_index(0, 6).possible_movements())
+

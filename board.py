@@ -1,8 +1,9 @@
+import constants
+
 from Pieces import piece
 
 
 class gameboard:
-
     board_array = [
         [None, None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None, None],
@@ -67,12 +68,37 @@ class gameboard:
 
     @classmethod
     def show(cls):
-        final_string = ''
-        for x in range(len(cls.board_array)):
-            for y in range(len(cls.board_array[x])):
-                final_string += cls.board_array[x][y].name + ' '
-            final_string += '\n'
-        return final_string
+        output = ""
+        for c in range(len(cls.board_array)):
+            for r in range(len(cls.board_array[c])):
+                output += cls.board_array[r][c].name + " "
+            output += '\n'
+        print(output)
 
+    @classmethod
+    def start(cls):
 
+        cls.make_all_empty()
 
+        def place(y_major_line, team_name):
+            """
+            :param y_major_line: the 'y' position (int) of the major line (queen, king, bishop, knight, rook...)
+            :param team_name: the name of the team being placed
+            """
+
+            piece.rook(0, y_major_line, team_name)
+            piece.knight(1, y_major_line, team_name)
+            piece.bishop(2, y_major_line, team_name)
+            piece.queen(3, y_major_line, team_name)
+            piece.king(4, y_major_line, team_name)
+            piece.bishop(5, y_major_line, team_name)
+            piece.knight(6, y_major_line, team_name)
+            piece.rook(7, y_major_line, team_name)
+
+        place(7, constants.TEAM_NAME_1)
+        place(0, constants.TEAM_NAME_2)
+
+        #  for in range of board array length
+        for x in range(len(gameboard.board_array[0])):
+            piece.pawn(x, 1, constants.TEAM_NAME_2)
+            piece.pawn(x, 6, constants.TEAM_NAME_1)
