@@ -1,0 +1,2 @@
+TEAM_NAME_1 = "a"
+TEAM_NAME_2 = "b"
