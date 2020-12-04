@@ -3,6 +3,13 @@ import constants
 import pygame
 
 
+# ----------EMPTY----------
+
+class empty:
+    name = "empty"
+    team = "empty"
+
+
 class parent:
 
     def __init__(self, x, y, team):
@@ -14,6 +21,8 @@ class parent:
 
     def kill(self):
         self.alive = False
+        board.gameboard.set_index(self.x, self.y, empty)
+        self.__class__ = empty
 
 
 # ----------KING----------
@@ -59,7 +68,11 @@ class king(parent):
         return possible
 
     def draw(self, display):
-        pass  # todo
+        if self.team == constants.TEAM_NAME_1:
+            img = pygame.image.load(constants.TEAM_1_KING_PATH)
+        else:
+            img = pygame.image.load(constants.TEAM_2_KING_PATH)
+        display.blit(img, (self.x * constants.TILE_SIZE, self.y * constants.TILE_SIZE))
 
 
 # ----------ROOK----------
@@ -228,7 +241,11 @@ class bishop(parent):
         return possible
 
     def draw(self, display):
-        pass  # todo
+        if self.team == constants.TEAM_NAME_1:
+            img = pygame.image.load(constants.TEAM_1_BISHOP_PATH)
+        else:
+            img = pygame.image.load(constants.TEAM_2_BISHOP_PATH)
+        display.blit(img, (self.x * constants.TILE_SIZE, self.y * constants.TILE_SIZE))
 
 
 # ----------KNIGHT----------
@@ -290,7 +307,11 @@ class queen(rook, bishop):
         return self.check_vertical() + self.check_horizontal() + self.check_diagonal()
 
     def draw(self, display):
-        pass  # todo
+        if self.team == constants.TEAM_NAME_1:
+            img = pygame.image.load(constants.TEAM_1_QUEEN_PATH)
+        else:
+            img = pygame.image.load(constants.TEAM_2_QUEEN_PATH)
+        display.blit(img, (self.x * constants.TILE_SIZE, self.y * constants.TILE_SIZE))
 
 
 # ----------PAWN----------
@@ -306,28 +327,28 @@ class pawn(parent):
     def possible_movements(self):
         possible = []
         if self.team == constants.TEAM_NAME_1:
-            if self.y - 1 >= 0 and board.gameboard.peek_index(self.x, self.y - 1).name == "empty":
+            if self.y - 1 >= 0 and board.gameboard.peek_index(self.x, self.y - 1).team == "empty":
                 possible.append((self.x, self.y - 1))
-                if not self.moved_once and self.y - 2 >= 0 and board.gameboard.peek_index(self.x,
-                                                                                          self.y - 2).name == "empty":
+                if not self.moved_once and self.y - 2 >= 0 and \
+                        board.gameboard.peek_index(self.x, self.y - 2).team == "empty":
                     possible.append((self.x, self.y - 2))
-
-            if board.gameboard.peek_index(self.x - 1, self.y - 1) is not None and \
-                    board.gameboard.peek_index(self.x - 1, self.y - 1).name == constants.TEAM_NAME_2:
+            if self.x - 1 >= 0 and self.y - 1 >= 0 and \
+                    board.gameboard.peek_index(self.x - 1, self.y - 1).team == constants.TEAM_NAME_2:
                 possible.append((self.x - 1, self.y - 1))
 
             if self.x + 1 <= 7 and self.y - 1 >= 0 and \
-                    board.gameboard.peek_index(self.x + 1, self.y - 1).name == constants.TEAM_NAME_2:
+                    board.gameboard.peek_index(self.x + 1, self.y - 1).team == constants.TEAM_NAME_2:
                 possible.append((self.x + 1, self.y - 1))
 
         elif self.team == constants.TEAM_NAME_2:
+
             if self.y + 1 <= 7 and board.gameboard.peek_index(self.x, self.y + 1).team == "empty":
                 possible.append((self.x, self.y + 1))
                 if not self.moved_once and self.y + 2 <= 7 and \
                         board.gameboard.peek_index(self.x, self.y + 2).team == "empty":
                     possible.append((self.x, self.y + 2))
 
-            if board.gameboard.peek_index(self.x - 1, self.y + 1) is not None and \
+            if self.x - 1 >= 0 and self.y + 1 <= 7 and \
                     board.gameboard.peek_index(self.x - 1, self.y + 1).team == constants.TEAM_NAME_1:
                 possible.append((self.x - 1, self.y + 1))
 
@@ -343,10 +364,3 @@ class pawn(parent):
         else:
             img = pygame.image.load(constants.TEAM_2_PAWN_PATH)
         display.blit(img, (self.x * constants.TILE_SIZE, self.y * constants.TILE_SIZE))
-
-
-# ----------EMPTY----------
-
-class empty:
-    name = "empty"
-    team = "empty"

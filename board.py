@@ -55,15 +55,12 @@ class gameboard:
 
     @classmethod
     def move_to(cls, pc, x_to, y_to):
-        xy = x_to, y_to
-        # if xy in pc.possible_movements():
-        EMPTY = piece.empty
-        if cls.board_array[x_to][y_to].name != "empty":
+        if cls.board_array[x_to][y_to].team != "empty":
             cls.board_array[x_to][y_to].kill()
-        cls.board_array[pc.x][pc.y] = EMPTY  # old position
+        cls.board_array[pc.x][pc.y] = piece.empty
         pc.x = x_to  # pieces new x
         pc.y = y_to  # pieces new y
-        cls.board_array[pc.x][pc.y] = pc  # updated position
+        cls.board_array[x_to][y_to] = pc  # updated position
         if pc.name == "pawn":
             pc.moved_once = True
 
