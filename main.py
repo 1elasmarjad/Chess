@@ -30,6 +30,8 @@ def main():
             grid_x, grid_y = hovering_tile.grid_pos()  # the x and y locations of the cursor in terms of the grid
             if pygame.mouse.get_pressed()[0] and board.gameboard.peek_index(grid_x, grid_y) != piece.empty:
                 clicked_piece = board.gameboard.peek_index(grid_x, grid_y)
+                tile_highlight = pygame.image.load(constants.SELECTED_EFFECT_PATH)
+                display.blit(tile_highlight, (grid_x * constants.TILE_SIZE, grid_y * constants.TILE_SIZE))
                 for positions in clicked_piece.possible_movements():
                     board.gameboard.highlight(positions[0], positions[1], display)
 
