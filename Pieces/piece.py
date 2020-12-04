@@ -136,7 +136,11 @@ class rook(parent):
         return possible
 
     def draw(self, display):
-        pass  # todo
+        if self.team == constants.TEAM_NAME_1:
+            img = pygame.image.load(constants.TEAM_1_ROOK_PATH)
+        else:
+            img = pygame.image.load(constants.TEAM_2_ROOK_PATH)
+        display.blit(img, (self.x * constants.TILE_SIZE, self.y * constants.TILE_SIZE))
 
 
 # ----------BISHOP----------
@@ -266,7 +270,11 @@ class knight(parent):
         return possible
 
     def draw(self, display):
-        pass  # todo
+        if self.team == constants.TEAM_NAME_1:
+            img = pygame.image.load(constants.TEAM_1_KNIGHT_PATH)
+        else:
+            img = pygame.image.load(constants.TEAM_2_KNIGHT_PATH)
+        display.blit(img, (self.x * constants.TILE_SIZE, self.y * constants.TILE_SIZE))
 
 
 # ----------QUEEN----------
@@ -330,9 +338,11 @@ class pawn(parent):
         return possible
 
     def draw(self, display):
-        if self.team == constants.TEAM_NAME_2:
+        if self.team == constants.TEAM_NAME_1:
+            img = pygame.image.load(constants.TEAM_1_PAWN_PATH)
+        else:
             img = pygame.image.load(constants.TEAM_2_PAWN_PATH)
-            display.blit(img, (self.x * constants.TILE_SIZE, self.y * constants.TILE_SIZE))
+        display.blit(img, (self.x * constants.TILE_SIZE, self.y * constants.TILE_SIZE))
 
 
 # ----------EMPTY----------
