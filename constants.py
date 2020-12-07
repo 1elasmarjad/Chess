@@ -11,6 +11,7 @@ TILE_2_PATH = f"images/{PACK_NAME}/wood_tile.png"
 HOVER_EFFECT_PATH = f"images/{PACK_NAME}/hovering.png"
 POSSIBLE_MOVE_EFFECT_PATH = f"images/{PACK_NAME}/possible_move.png"
 SELECTED_EFFECT_PATH = f"images/{PACK_NAME}/selected.png"
+CHECK_EFFECT_PATH = f"images/{PACK_NAME}/check.png"
 
 TEAM_1_PAWN_PATH = f"images/{PACK_NAME}/team1/pawn.png"
 TEAM_1_KNIGHT_PATH = f"images/{PACK_NAME}/team1/knight.png"

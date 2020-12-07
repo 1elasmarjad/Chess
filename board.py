@@ -16,6 +16,7 @@ class gameboard:
         [None, None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None, None],
     ]
+    check = None
 
     @classmethod
     def draw_pieces(cls, display):
@@ -112,7 +113,7 @@ class gameboard:
             for y in range(len(cls.board_array[x])):
                 if cls.board_array[x][y] is not None and cls.board_array[x][y].name == piece_type and \
                         cls.board_array[x][y].team == team:
-                    return True
+                    return cls.board_array[x][y]
         return False
 
     @classmethod
@@ -154,3 +155,16 @@ class gameboard:
         for x in range(len(gameboard.board_array[0])):
             piece.pawn(x, 1, constants.TEAM_NAME_2)
             piece.pawn(x, 6, constants.TEAM_NAME_1)
+
+    @classmethod
+    def in_check(cls, team):
+        pc = gameboard.team_has('king', team)  # get the piece
+        if pc:
+            pos = pc.x, pc.y  # position of king
+            for x in range(len(gameboard.board_array)):
+                for y in range(len(gameboard.board_array[x])):
+                    search = gameboard.board_array[x][y]
+                    if search != piece.empty and search.team != team:
+                        if pos in search.possible_movements():
+                            return True
+            return False

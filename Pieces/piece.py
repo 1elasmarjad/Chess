@@ -1,6 +1,9 @@
 import board
 import constants
 import pygame
+import sys
+
+sys.setrecursionlimit(1500)
 
 
 # ----------EMPTY----------
@@ -31,7 +34,7 @@ class king(parent):
     pass
     name = "king"
     check_mate = False
-    stuck = False
+    in_check = False
 
     def __init__(self, x, y, team):
         super().__init__(x, y, team)
